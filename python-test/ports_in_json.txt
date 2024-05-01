@@ -1,0 +1,295 @@
+Airspur
+Akanax
+Alaghon
+Almorel
+Almraiven
+Amrutlar
+Anchoril
+Ankhapur
+Arabel
+Archenbridge
+Arrabar
+Asbravn
+Ascore
+Ashabenford
+Assam
+Assur
+Athkatla
+Baldur's Gate
+Bell in the Deep
+Beluir
+Berdusk
+Beregost
+Bezantur
+Bezentil
+Bildoobaris
+Bloodstone Village
+Brost
+Caer Calidyrr
+Caer Corwell
+Calimport
+Candlekeep
+Castle Perilous
+Castle Tethyr
+Cathyr
+Cedarspoke
+Channathgate
+Chavyondat
+Chethel
+Cimbar
+Citadel Adbar
+Citadel Felbarr
+Citadel Rashemen
+Citadel of the Raven
+City of Shade
+Clymph Tower
+Corm Orp
+Crimmor
+Daerlun
+Dagger Falls
+Daggerford
+Dalelost
+Darkhold
+Darmshall
+Darromar
+Delhalls
+Delhumide
+Delselar
+Delthuntle
+Delzimmer
+Derlusk
+Dilpur
+Dragon Falls
+Dragonspear Castle
+Durlag's Tower
+Eartheart
+Easting
+Elbulder
+Elmwood
+Eltabbar
+Elturel
+Elventree
+Elversult
+Emmech
+Escalant
+Eshpurta
+Esmeltaran
+Essembra
+Evereska
+Everlund
+Fort Arran
+Fort Beluarian
+Furthinghome
+Galaunt
+Gheldaneth
+Gildenglade
+Glarandar
+Glister
+Goldenfields
+Grandfather Tree
+Greenest
+Griffon's Nest
+Halagard
+Halarahh
+Hardcastle
+Harrowdale
+Heliogabalus
+Hellgate Keep
+Highmoon
+Hill's Edge
+Hillsfar
+Hlammach
+Hlath
+Hlaungadath
+Hlondeth
+Hluthvar
+Hulburg
+Ilinvur
+Ilipur
+Iljak
+Ilmwatch
+Immilmar
+Imnescar
+Innarlith
+Iriaebor
+Iron Keep
+IronFang Deep
+Ironfang Keep
+Ironspur
+Irphong
+Ishau
+Ithmong
+Jiyyd
+Kagarr
+Keczulla
+Khalab
+Kholtar
+Kormul
+Krenalir
+Kront
+Laothkund
+Lapalgard
+Laviguer
+Lheshayl
+Lhesper
+Llewellyn
+Llorkh
+Longsaddle
+Loudwater
+Lundeth
+Lushpool
+Luskan
+Luthcheq
+Lyrabar
+Maarlith
+Maerlar
+Manshaka
+Marsember
+Melvaunt
+Memnon
+Messemprar
+Mezro
+Mimph
+Mines of Tethyamar
+Mintar
+Mirabar
+Mishtan City of the Dead
+Mithral Hall
+Monastery of the Yellow Rose
+Mordulkin
+Morningstar Hollows
+Mosstone
+Mount Talath
+Mulmaster
+Mulptan
+Mulsantir
+Murann
+Murghyr
+Mussum
+Myratma
+Myth Drannor
+N'Jast
+Nashkel
+Nathlekh
+Nathoud
+Nelderild
+Nesme
+Nethentir
+Nethjet
+Neverwinter
+Nighthawk Tower
+Nimpeth
+Nonthal
+Nyth
+Ordulin
+Ormath
+Ormpe
+Ormpetarr
+Ormpur
+Palischuk
+Peltarch
+Phannaskull
+Phent
+Phlan
+Phsant
+Port Castigliar
+Port Ghaast
+Port Nyranzaru
+Praka
+Priapurl
+Procampur
+Pros
+Proskur
+Purskul
+Pyarados
+Rauthil
+Ravens Bluff
+Red Larch
+Reddansyr
+Relkath's Foot
+Reth
+Rethmar
+Riatavin
+Saelmur
+Saerloon
+Samargol
+Sambar
+Sammarash
+Samra
+Sapra
+Saradush
+Sarshel
+Scardale
+Schamedar
+Scornubel
+Secomber
+Selgaunt
+Shaarmid
+Shadowdale
+Shamph
+Sheirtalar
+Shoun
+Shussel
+Silverymoon
+Skuld
+Soonenar
+Soubar
+Spandeliyon
+Starmantle
+Suldolphor
+Sultim
+Sundabar
+Sundrah
+Surkh
+Surthay
+Suzail
+Talagbar
+Tammar
+Tantras
+Tashluta
+Telflamm
+Teshwave
+Teziir
+The Mucklestones
+The Twin Towers
+The Watchwall
+Thentia
+Theymarsh
+Thindar
+Three Swords
+Thruldar
+Tilverton
+Torsh
+Tower Threespires
+Trail's End
+Triboar
+Triel
+Tsurlagol
+Tulmon
+Two Stars
+Tyraturos
+Unthalass
+Urbeth
+Urmlaspyr
+Uthmere
+Vaelan
+Valls
+Velen
+Velprintalar
+Voonlar
+Warlock's Crypt
+Waterdeep
+Well of Dragons
+Westgate
+Whitehorn
+Winterkeep
+Xorhun
+Yallasch
+Yartar
+Yeshpek
+Yhaunn
+Yhep
+Ylraphon
+Zazesspur
+Zhentil Keep
+Zindalankh

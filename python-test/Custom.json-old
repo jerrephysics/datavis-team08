@@ -1,0 +1,117 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {"name": "Adama's Tooth"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [4680,2057.5]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Aerilpar"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [4450,1975]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Amphail"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [760,640]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Amruthar"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [3750,975]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Arkanax"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [3160,1540]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Arn Rock"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2275,2120]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Auckney"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [190,265]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Azureleaf"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [900,2800]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Berranzo"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [370,2285]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Blackstone"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [425,1275]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Bloodstone (Damara)"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2800,250]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Bloodstone (Vaasa)"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [2700,250]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Bryn Shander"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [300,125]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {"name": "Caer Callidyrr"},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [0,0]
+            }
+        }
+    ]
+}
