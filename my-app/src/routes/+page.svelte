@@ -22,13 +22,15 @@
     let all_south_cities = data.deadregions.filter(entry => entry.Area == "South").map(entry => entry.Territory);
     let all_west_cities = data.deadregions.filter(entry => entry.Area == "West").map(entry => entry.Territory);
     let all_underdark_cities = data.deadregions.filter(entry => entry.Area == "Underdark").map(entry => entry.Territory);
-    //let all_order_dates = data.deadorders.map(entry => entry.OrderDate);
-    //let all_delivery_dates = data.deadorders.map(entry => entry.DeliveryDate);
+    let all_order_dates = data.deadorders.map(entry => entry.OrderDate);
+    let all_north_order_dates = data.deadorders.map(entry => entry.OrderDate);
+    let all_delivery_dates = data.deadorders.map(entry => entry.DeliveryDate);
     //console.log(all_order_dates);
   
     const scaleX = scaleLinear().domain([-100,4600]).range([0,1200])
     const scaleY = scaleLinear().domain([0,3300]).range([600,0])
     const scaleColour = scaleLinear().domain([0,671]).range(["red","green"])
+    const scaleRadius = scaleLinear().domain([100,2632]).range([4,10])
     const MAX_SELECTED_ITEMS = 5; 
 	const MAX_AVAILABLE_OPTIONS = 5;
 
@@ -130,7 +132,7 @@
                 {#if all_north_cities.includes(city.popup.title) && showNorth}
                     <circle cx={scaleX(city.position[0])}
                     cy={scaleY(city.position[1])}
-                    r=4
+                    r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
                     class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
                     on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
                     on:mouseout={function() {selected_datapoint = undefined}}
@@ -141,7 +143,7 @@
                 {#if all_east_cities.includes(city.popup.title) && showEast}
                     <circle cx={scaleX(city.position[0])}
                     cy={scaleY(city.position[1])}
-                    r=4
+                    r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
                     class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
                     on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
                     on:mouseout={function() {selected_datapoint = undefined}}
@@ -152,7 +154,7 @@
                 {#if all_south_cities.includes(city.popup.title) && showSouth}
                     <circle cx={scaleX(city.position[0])}
                     cy={scaleY(city.position[1])}
-                    r=4
+                    r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
                     class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
                     on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
                     on:mouseout={function() {selected_datapoint = undefined}}
@@ -163,7 +165,7 @@
                 {#if all_west_cities.includes(city.popup.title) && showWest}
                     <circle cx={scaleX(city.position[0])}
                     cy={scaleY(city.position[1])}
-                    r=4
+                    r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
                     class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
                     on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
                     on:mouseout={function() {selected_datapoint = undefined}}
@@ -174,7 +176,7 @@
                 {#if all_underdark_cities.includes(city.popup.title) && showUnderdark}
                     <circle cx={scaleX(city.position[0])}
                     cy={scaleY(city.position[1])}
-                    r=4
+                    r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
                     class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
                     on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
                     on:mouseout={function() {selected_datapoint = undefined}}
@@ -204,11 +206,6 @@
 
 {#if selected_datapoint != undefined}
 <div id="tooltip" style="left: {mouse_x + 10}px; top: {mouse_y - 10}px">
-<svg class="tooltip" width=20 height=20>
-  <g transform="translate(10,10)">
-  <data.regions datapoint={selected_datapoint} />
-  </g>
-</svg><br/>
-Territory: {selected_datapoint.popup.title}, coordinates: ({selected_datapoint.position})
+Territory: {selected_datapoint.popup.title}, orders: {data.deadorders.filter(entry => entry.Territory == selected_datapoint.popup.title).length}
 </div>
 {/if}
