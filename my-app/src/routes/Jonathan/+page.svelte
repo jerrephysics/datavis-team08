@@ -123,8 +123,14 @@
 	label:has(input[type="checkbox"]:checked){
 		color:green
 	}
+    svg{
+        background-color: whitesmoke;
+    }
 </style>
-  
+
+
+<h1> Map of the Forgotten realms</h1>
+
 <svg width="1200" height="600">
     {#each data.regions as datapoint}
         {#each datapoint.markers as city}
