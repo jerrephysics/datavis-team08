@@ -5,20 +5,24 @@ import { onMount } from 'svelte';
 
 //let vis;
 
+const qui_magenta = "#8E4162";
+const tea_green = "#D7E8BA";
+const moonstone = "#4DA1A9";
+const neon_blue = "#4361EE";
+const tyrian_purple = "#611C35";
+const colormap = [qui_magenta, tea_green,moonstone,neon_blue,tyrian_purple];
+
+
 const margin = {top:		0,
 				bottom:		0,
 				left:		0,
 				right:		0};
 
-
-
-
-
 let width;
 let height;
 
 let data = [];
-for (let i = 0; i<3; ++i){
+for (let i = 0; i<5; ++i){
 	data.push({x: Math.random(), y: Math.random() ,z: Math.random(), area: "Area " + i});
 }
 
@@ -42,9 +46,9 @@ for (let dat of data){
 	max_vals[2] = Math.max(dat.z, max_vals[2]);
 }
 
-let xScale = d3.scaleLinear().domain([min_vals[0], max_vals[0]]);
-let yScale = d3.scaleLinear().domain([min_vals[1], max_vals[1]]);
-let zScale = d3.scaleLinear().domain([min_vals[2], max_vals[2]]);
+let xScale = d3.scaleLinear().domain([0.9*min_vals[0],1.1* max_vals[0]]);
+let yScale = d3.scaleLinear().domain([0.9*min_vals[1], 1.2*max_vals[1]]);
+let zScale = d3.scaleLinear().domain([0.9*min_vals[2],1.1* max_vals[2]]);
 
 onMount(() => {
 		redraw();
@@ -88,7 +92,7 @@ svg.append('g').selectAll('rect')
 	.attr('x', function (d) { return -0.5 * xScale(d.x); })
 	.attr('y', 0)
 	.attr('transform', function (d,i) { return `rotate( ${ 180 + (i / data.length) * 360},0,0)`;})
-	.style('fill-opacity',0.4);
+	.style('fill',function (d,i) { return colormap[i % colormap.length]; });
 
 svg.append('g').selectAll('circle')
 	.data(data)
@@ -97,7 +101,8 @@ svg.append('g').selectAll('circle')
 	.attr('cx', 0)
 	.attr('cy', function(d) { return yScale(d.y);})
 	.attr('r', function (d) {return zScale(d.z);})
-	.attr('fill-opacity',0.1)
+	.attr('fill-opacity',1)
+	.style('fill',function (d,i) { return colormap[i % colormap.length]; })
 	.attr('transform', function (d,i) {return `rotate(${180 + i / data.length * 360}, 0, 0)`;});
 
 
@@ -117,7 +122,8 @@ console.log(polygon_points);
 
 svg.append('g').append('polygon')
 	.attr('points',polygon_points)
-	.attr('transform','rotate(180,0,0)');
+	.attr('transform','rotate(180,0,0)')
+	.style('fill','black');
 
 
 svg.append('g').selectAll('text')
@@ -131,7 +137,7 @@ svg.append('g').selectAll('text')
 	.text(function (d) {return d.area;})
 	.attr('transform', function (d,i) {
 		let angle = 3*Math.PI/2 + i / data.length * 2 * Math.PI;
-		let r =   1.2*( yScale(d.y)+zScale(d.z) );
+		let r= 1.3 * ( yScale(d.y)+zScale(d.z) );
 		return `translate(${r * Math.cos(angle)}, ${r * Math.sin(angle)})`;
 		})
 	
