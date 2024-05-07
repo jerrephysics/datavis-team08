@@ -3,6 +3,23 @@
 import * as d3 from 'd3';
 import { onMount } from 'svelte';
 
+
+let data = [] ;
+
+const load = async () => {
+data = await d3.csv("/jer-data.csv",(d) => {return {z: +d.CartPriceInCP, y: +d.Time, x: 1, area: d.Location};})
+.then(data => redraw(data));
+}
+
+
+
+onMount(() => {
+		load();
+		//redraw();
+		window.addEventListener('resize',load);
+	})
+
+
 //let vis;
 
 const qui_magenta = "#8E4162";
@@ -21,42 +38,24 @@ const margin = {top:		0,
 let width;
 let height;
 
-let data = [];
-for (let i = 0; i<5; ++i){
-	data.push({x: Math.random(), y: Math.random() ,z: Math.random(), area: "Area " + i});
-}
 
-let i = data.length
-
-data.push({x:1, y:1, z:1, area: "Area " + (i +1)})
-data.push({x:0, y:0, z:0, area: "Area " + (i +2)})
-data.push({x:1, y:1, z:0, area: "Area " + (i +3)})
-data.push({x:0, y:0, z:1, area: "Area " + (i +4)})
-
-
-let min_vals = [Infinity, Infinity, Infinity];
-let max_vals = [-Infinity, -Infinity, -Infinity];
-
-for (let dat of data){
-	min_vals[0] = Math.min(dat.x, min_vals[0]);
-	max_vals[0] = Math.max(dat.x, max_vals[0]);
-	min_vals[1] = Math.min(dat.y, min_vals[1]);
-	max_vals[1] = Math.max(dat.y, max_vals[1]);
-	min_vals[2] = Math.min(dat.z, min_vals[2]);
-	max_vals[2] = Math.max(dat.z, max_vals[2]);
-}
-
-let xScale = d3.scaleLinear().domain([0.9*min_vals[0],1.1* max_vals[0]]);
-let yScale = d3.scaleLinear().domain([0.9*min_vals[1], 1.2*max_vals[1]]);
-let zScale = d3.scaleLinear().domain([0.9*min_vals[2],1.1* max_vals[2]]);
-
-onMount(() => {
-		redraw();
-		window.addEventListener('resize',redraw);
-	})
-
-function redraw() {
+function redraw(data) {
 	d3.select('#vis').html(null);
+	let min_vals = [Infinity, Infinity, Infinity];
+	let max_vals = [-Infinity, -Infinity, -Infinity];
+
+	for (let dat of data){
+		min_vals[0] = Math.min(dat.x, min_vals[0]);
+		max_vals[0] = Math.max(dat.x, max_vals[0]);
+		min_vals[1] = Math.min(dat.y, min_vals[1]);
+		max_vals[1] = Math.max(dat.y, max_vals[1]);
+		min_vals[2] = Math.min(dat.z, min_vals[2]);
+		max_vals[2] = Math.max(dat.z, max_vals[2]);
+	}
+
+	let xScale = d3.scaleLinear().domain([0.9*min_vals[0],1.1* max_vals[0]]);
+	let yScale = d3.scaleLinear().domain([0.9*min_vals[1], 1.2*max_vals[1]]);
+	let zScale = d3.scaleLinear().domain([0.9*min_vals[2],1.1* max_vals[2]]);
 	
 	width = d3.select('#vis').node().getBoundingClientRect().width - margin.left - margin.right;
 	height = d3.select('#vis').node().getBoundingClientRect().height - margin.top - margin.bottom;
