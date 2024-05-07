@@ -22,15 +22,18 @@
     let all_south_cities = data.deadregions.filter(entry => entry.Area == "South").map(entry => entry.Territory);
     let all_west_cities = data.deadregions.filter(entry => entry.Area == "West").map(entry => entry.Territory);
     let all_underdark_cities = data.deadregions.filter(entry => entry.Area == "Underdark").map(entry => entry.Territory);
-    let all_order_dates = data.deadorders.map(entry => entry.OrderDate);
-    let all_north_order_dates = data.deadorders.map(entry => entry.OrderDate);
-    let all_delivery_dates = data.deadorders.map(entry => entry.DeliveryDate);
-    //console.log(all_order_dates);
+    let all_order_dates = data.deadorders.map(entry => entry.OrderDate).map(entry => new Date(entry));
+    let all_delivery_dates = data.deadorders.map(entry => entry.DeliveryDate).map(entry => new Date(entry));
+    let all_north_order_dates = data.deadorders.filter(entry => all_north_cities.includes(entry.Territory)).map(entry => entry.OrderDate).map(entry => new Date(entry));
+    let all_east_order_dates = data.deadorders.filter(entry => all_east_cities.includes(entry.Territory)).map(entry => entry.OrderDate).map(entry => new Date(entry));
+    let all_city_order_dates = [];
+    let all_city_delivery_dates = [];
   
-    const scaleX = scaleLinear().domain([-100,4600]).range([0,1200])
-    const scaleY = scaleLinear().domain([0,3300]).range([600,0])
-    const scaleColour = scaleLinear().domain([0,671]).range(["red","green"])
-    const scaleRadius = scaleLinear().domain([100,2632]).range([4,10])
+    const scaleX = scaleLinear().domain([-100,4600]).range([0,1200]);
+    const scaleY = scaleLinear().domain([0,3300]).range([600,0]);
+    const scaleColour = scaleLinear().domain([0,671]).range(["red","green"]);
+    const scaleRadius = scaleLinear().domain([100,2632]).range([4,10]);
+    const getAverage = (array) => array.reduce((sum, currentValue) => sum + currentValue, 0) / array.length;
     const MAX_SELECTED_ITEMS = 5; 
 	const MAX_AVAILABLE_OPTIONS = 5;
 
@@ -93,6 +96,10 @@
             newCircles[index] = !newCircles[index];
             return newCircles;
         });
+    }
+
+    function subtractArrays(arr1, arr2) {
+        return arr1.map((value, index) => value - arr2[index]);
     }
 </script>
   
@@ -211,7 +218,10 @@
 </div>
 
 {#if selected_datapoint != undefined}
+{all_city_delivery_dates = data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.DeliveryDate).map(entry => new Date(entry))}
+{all_city_order_dates = data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.OrderDate).map(entry => new Date(entry))}
 <div id="tooltip" style="left: {mouse_x + 10}px; top: {mouse_y - 10}px">
-Territory: {selected_datapoint.popup.title}, orders: {data.deadorders.filter(entry => entry.Territory == selected_datapoint.popup.title).length}
+Territory: {selected_datapoint.popup.title}, orders: {data.deadorders.filter(entry => entry.Territory == selected_datapoint.popup.title).length}, 
+average delivery time: {getAverage(subtractArrays(all_city_delivery_dates,all_city_order_dates))/(1000*3600*24)} days
 </div>
 {/if}
