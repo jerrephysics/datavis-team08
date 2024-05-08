@@ -11,8 +11,8 @@
     export let data = [];
     export let selected_datapoint = undefined;
     let visible = true;
-    let value = undefined;
-    let index = 1;
+    let temp = false;
+    let showtemp = [false,false,false,false];
     let selectedItems = [];
     let availableOptions = ["North","East","South","West","Underdark"];
     let showNorth = false;
@@ -120,12 +120,8 @@
         return arr1.map((value, index) => value - arr2[index]);
     }
 
-    //export let path = '';
     let path = '';
 	let linecolor = 'red';
-
-	//export let style = '';
-
 	let loaded = false;
 
     function formatArrayToString(array) {
@@ -222,9 +218,9 @@
 		transition: all 0.3s ease-out;
         visibility: visible;
         display: unset;
-        fill: none; /* Ensure no fill */
-        stroke: red; /* Color of the lines */
-        stroke-width: 2; /* Adjust line thickness as needed */
+        fill: none;
+        stroke: red;
+        stroke-width: 1;
         stroke-linecap: round;
         stroke-linejoin: round;
     }
@@ -233,6 +229,25 @@
 
 <h1> Map of the Forgotten realms</h1>
 <svg width={svgWidth} height={svgHeight}>
+    {#if selected_datapoint != undefined}
+        {#each [subtractArrays(data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.DeliveryDate).map(entry => new Date(entry)),data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.OrderDate).map(entry => new Date(entry)))] as path}
+            {#each [createScalingFunctions(path)] as { scaleXFunc, scaleYFunc }}
+                <path
+                    in:draw={{
+                        duration: 2000,
+                        easing: quintOut
+                    }}
+                    class={`Line`}
+                    d={formatArrayToPathData(path, scaleXFunc, scaleYFunc)}
+                    fill="none"
+                    stroke={linecolor}
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                /> 
+            {/each}
+        {/each}
+    {/if}
     {#if visible}
         <image
             x="0"
@@ -249,8 +264,8 @@
                     cy={scaleY(city.position[1]+97)}
                     r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
                     class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
-                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
-                    on:mouseout={function() {selected_datapoint = undefined}}
+                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event); temp = visible; visible = false; showtemp[0] = showEast; showtemp[1] = showSouth; showtemp[2] = showWest; showtemp[3] = showUnderdark; showEast = false; showSouth = false; showWest = false; showUnderdark = false}}
+                    on:mouseout={function() {selected_datapoint = undefined; visible = temp; showEast = showtemp[0]; showSouth = showtemp[1]; showWest = showtemp[2]; showUnderdark = showtemp[3]}}
                     style={"fill:" + chooseColour(city.popup.title)}>
                         <title>{city.popup.title}</title>
                     </circle>
@@ -260,8 +275,8 @@
                     cy={scaleY(city.position[1]+97)}
                     r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
                     class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
-                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
-                    on:mouseout={function() {selected_datapoint = undefined}}
+                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event); temp = visible; visible = false; showtemp[0] = showNorth; showtemp[1] = showSouth; showtemp[2] = showWest; showtemp[3] = showUnderdark; showNorth = false; showSouth = false; showWest = false; showUnderdark = false}}
+                    on:mouseout={function() {selected_datapoint = undefined; visible = temp; showNorth = showtemp[0]; showSouth = showtemp[1]; showWest = showtemp[2]; showUnderdark = showtemp[3]}}
                     style={"fill:" + chooseColour(city.popup.title)}>
                         <title>{city.popup.title}</title>
                     </circle>
@@ -271,8 +286,8 @@
                     cy={scaleY(city.position[1]+97)}
                     r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
                     class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
-                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
-                    on:mouseout={function() {selected_datapoint = undefined}}
+                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event); temp = visible; visible = false; showtemp[0] = showNorth; showtemp[1] = showEast; showtemp[2] = showWest; showtemp[3] = showUnderdark; showNorth = false; showEast = false; showWest = false; showUnderdark = false}}
+                    on:mouseout={function() {selected_datapoint = undefined; visible = temp; showNorth = showtemp[0]; showEast = showtemp[1]; showWest = showtemp[2]; showUnderdark = showtemp[3]}}
                     style={"fill:" + chooseColour(city.popup.title)}>
                         <title>{city.popup.title}</title>
                     </circle>
@@ -282,8 +297,8 @@
                     cy={scaleY(city.position[1]+97)}
                     r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
                     class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
-                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
-                    on:mouseout={function() {selected_datapoint = undefined}}
+                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event); temp = visible; visible = false; showtemp[0] = showNorth; showtemp[1] = showEast; showtemp[2] = showSouth; showtemp[3] = showUnderdark; showNorth = false; showEast = false; showSouth = false; showUnderdark = false}}
+                    on:mouseout={function() {selected_datapoint = undefined; visible = temp; showNorth = showtemp[0]; showEast = showtemp[1]; showSouth = showtemp[2]; showUnderdark = showtemp[3]}}
                     style={"fill:" + chooseColour(city.popup.title)}>
                         <title>{city.popup.title}</title>
                     </circle>
@@ -293,8 +308,8 @@
                     cy={scaleY(city.position[1]+97)}
                     r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
                     class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
-                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
-                    on:mouseout={function() {selected_datapoint = undefined}}
+                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event); temp = visible; visible = false; showtemp[0] = showNorth; showtemp[1] = showEast; showtemp[2] = showSouth; showtemp[3] = showWest; showNorth = false; showEast = false; showSouth = false; showWest = false}}
+                    on:mouseout={function() {selected_datapoint = undefined; visible = temp; showNorth = showtemp[0]; showEast = showtemp[1]; showSouth = showtemp[2]; showWest = showtemp[3]}}
                     style={"fill:" + chooseColour(city.popup.title)}>
                         <title>{city.popup.title}</title>
                     </circle>
@@ -318,26 +333,9 @@
 </label>
 {/each}
 </div>
-<button on:click={() => visible = !visible}>Remove map</button>
+<button on:click={() => visible = !visible}>Remove/Show map</button>
 
 {#if selected_datapoint != undefined}
-    {#each [subtractArrays(data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.DeliveryDate).map(entry => new Date(entry)),data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.OrderDate).map(entry => new Date(entry)))] as path}
-        {#each [createScalingFunctions(path)] as { scaleXFunc, scaleYFunc }}
-            <path
-                in:draw={{
-                    duration: 2000,
-                    easing: quintOut
-                }}
-                class={`Line`}
-                d={formatArrayToPathData(path, scaleXFunc, scaleYFunc)}
-                fill="none"
-                stroke={linecolor}
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            /> 
-        {/each}
-    {/each}
     <div id="tooltip" style="left: {mouse_x + 10}px; top: {mouse_y - 10}px">
     Territory: {selected_datapoint.popup.title}, orders: {data.deadorders.filter(entry => entry.Territory == selected_datapoint.popup.title).length}, 
     average delivery time: {getAverage(subtractArrays(update_all_city_delivery_dates(selected_datapoint),update_all_city_order_dates(selected_datapoint)))/(1000*3600*24)} days
