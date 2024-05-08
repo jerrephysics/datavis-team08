@@ -19,7 +19,7 @@
     }
   </style>
   
-  <svg width=200 height=200>
+  <svg width=500 height=500>
     {#each slices as slice}
       <PieSlice cx=100 cy=100
                 r=50
