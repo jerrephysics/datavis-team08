@@ -1,22 +1,35 @@
-<script lang="ts">
+<script lang="js">
 
 import * as d3 from 'd3';
 import { onMount } from 'svelte';
 
 
 let data = [] ;
+let file = '';
+let grouping = '';
+
+const grouping_title = {"region":"Region",
+						"regionalmanager":"Regional Manager",
+						"area":"Area",
+						"areamanager":"Area Manager",
+						"nation": "Nation"};
 
 const load = async () => {
-data = await d3.csv("/jer-data.csv",(d) => {return {z: +d.CartPriceInCP, y: +d.Time, x: 1, area: d.Location};})
+	file = d3.select('input[name="grouping"]:checked').node().value;
+	grouping = grouping_title[file];
+	console.log(grouping)
+	data = await d3.csv(`/jer-data-${file}.csv`,(d) => {return {z: +d.CartPriceInCP, y: +d.Time, x: 1, area: d.Location};})
 .then(data => redraw(data));
 }
 
 
 
 onMount(() => {
-		load();
+		//d3.select('#region').checked = true;
+		//load();
 		//redraw();
 		window.addEventListener('resize',load);
+		d3.selectAll('input[name="grouping"]').on('click',load);
 	})
 
 
@@ -27,13 +40,24 @@ const tea_green = "#D7E8BA";
 const moonstone = "#4DA1A9";
 const neon_blue = "#4361EE";
 const tyrian_purple = "#611C35";
-const colormap = [qui_magenta, tea_green,moonstone,neon_blue,tyrian_purple];
+//const colormap = [qui_magenta, tea_green,moonstone,neon_blue,tyrian_purple];
 
+const bg = '#282a36';
+const fg = '#f8f8f2';
+const cyan = '#8be9fd';
+const green = '#50fa7b';
+const orange = '#ffb86c';
+const pink = '#ff79c6';
+const purple = '#bd93f9';
+const red = '#ff5555';
+const yellow = '#f1fa8c';
 
-const margin = {top:		0,
-				bottom:		0,
-				left:		0,
-				right:		0};
+const colormap = [cyan,green,orange, pink, purple, red,yellow];
+
+const margin = {top:		20,
+				bottom:		20,
+				left:		20,
+				right:		20};
 
 let width;
 let height;
@@ -77,6 +101,7 @@ const svg = d3.select('#vis')
 				.append('svg')
 				.attr('width', width + margin.left + margin.right)
 				.attr('height', height + margin.top + margin.bottom)
+				.style('background',bg)
 				.append('g')
 				.attr('transform', `translate(${[Math.floor(width / 2), Math.floor(height/ 2)]})`);
 
@@ -113,8 +138,8 @@ let angle = Math.PI / 2  + Math.PI /  data.length;
 for (let step = 0; step < data.length; step++){
 	console.log(angle);
 	console.log(Math.cos(angle));
-	polygon_points.push( MAX_WIDTH  * Math.cos(angle));
-	polygon_points.push( MAX_WIDTH * Math.sin(angle));
+	polygon_points.push(MAX_WIDTH  * Math.cos(angle));
+	polygon_points.push(MAX_WIDTH * Math.sin(angle));
 	angle += 2*Math.PI / data.length;
 }
 console.log(polygon_points);
@@ -122,7 +147,7 @@ console.log(polygon_points);
 svg.append('g').append('polygon')
 	.attr('points',polygon_points)
 	.attr('transform','rotate(180,0,0)')
-	.style('fill','black');
+	.style('fill',bg);
 
 
 svg.append('g').selectAll('text')
@@ -131,6 +156,7 @@ svg.append('g').selectAll('text')
 	.append('text')
 	.attr('y',0)
 	.attr('x',0)
+	.style('fill',fg)
 	.attr('dominant-baseline', 'middle')
 	.attr('text-anchor', 'middle')
 	.text(function (d) {return d.area;})
@@ -147,11 +173,32 @@ svg.append('g').selectAll('text')
 </script>
 
 
-<h1> Jeroen ({width}, {height})</h1>
+<h1> Flower plot for data grouped by {grouping}</h1>
+<div id="selection">
+<label for="selectionlist">Select grouping: </label>
+<input type="radio" id="region" name="grouping" value="region">
+<label for="region">Region</label>
+
+<input type="radio" id="regionalmanager" name="grouping" value="regionalmanager">
+<label for="area">Regional manager</label>
+
+<input type="radio" id="area" name="grouping" value="area">
+<label for="area">Area</label>
+
+<input type="radio" id="areamanager" name="grouping" value="areamanager">
+<label for="area">Area manager</label>
+
+<input type="radio" id="nation" name="grouping" value="nation">
+<label for="area">Nation</label>
+</div>
 <div id="vis"></div>
 
 <style>
 
+	#selection{
+		max-width: fit-content;
+		margin-inline: auto;
+	}
 
 	#vis {
 		position: fixed;
@@ -165,6 +212,7 @@ svg.append('g').selectAll('text')
 		fill: black;
 		fill-opacity: 0.5;
 	}
+	
 
 
 </style>
