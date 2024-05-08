@@ -12,7 +12,7 @@
       })
     }
   </script>
-  
+  <h1> Price in CP  Ordered per Month</h1>
   <style>
     svg {
       background-color: whitesmoke;
@@ -21,8 +21,8 @@
   
   <svg width=500 height=500>
     {#each slices as slice}
-      <PieSlice cx=100 cy=100
-                r=50
+      <PieSlice cx=250 cy=250
+                r=150
                 start_degree={slice[0]} stop_degree={slice[1]} />
     {/each}
   </svg>
