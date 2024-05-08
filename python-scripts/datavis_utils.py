@@ -34,9 +34,11 @@ with open('./DEAD/data/customers.csv') as f:
 
 with open('./DEAD/data/orders.csv') as f:
     orders = pd.read_csv(f)
-    print(orders.iloc[0,:])
+    #print(orders.iloc[0,:])
     orders['DeliveryDate'] = pd.to_datetime(orders['DeliveryDate'])
     orders['OrderDate'] = pd.to_datetime(orders['OrderDate'])
+    orders['DeliveryTime'] = orders['DeliveryDate'] - orders['OrderDate']
+    orders.insert(2,"DeliveryTime", orders.pop('DeliveryTime'))
     orders['Products'] = orders['Products'].astype(str)
     orders['Products'] = orders.Products.map(lambda x : [s.strip() for s in x.split(';') if s.strip()])
     def remove_nan(x):
