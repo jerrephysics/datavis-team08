@@ -10,6 +10,7 @@
   
     export let data = [];
     export let selected_datapoint = undefined;
+    let visible = true;
     let value = undefined;
     let index = 1;
     let selectedItems = [];
@@ -231,77 +232,77 @@
 
 
 <h1> Map of the Forgotten realms</h1>
-{#if selected_datapoint == undefined}
-    <svg width={svgWidth} height={svgHeight}>
+<svg width={svgWidth} height={svgHeight}>
+    {#if visible}
         <image
             x="0"
             y="0"
             width={svgWidth}
             height={svgHeight} 
-            href = "http://localhost:5173/image.jpg"/>   
-        {#each data.regions as datapoint}
-            {#each datapoint.markers as city}
-                {#if all_cities.includes(city.popup.title)}
-                    {#if all_north_cities.includes(city.popup.title) && showNorth}
-                        <circle cx={scaleX(city.position[0])}
-                        cy={scaleY(city.position[1])}
-                        r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
-                        class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
-                        on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
-                        on:mouseout={function() {selected_datapoint = undefined}}
-                        style={"fill:" + chooseColour(city.popup.title)}>
-                            <title>{city.popup.title}</title>
-                        </circle>
-                    {/if}
-                    {#if all_east_cities.includes(city.popup.title) && showEast}
-                        <circle cx={scaleX(city.position[0])}
-                        cy={scaleY(city.position[1])}
-                        r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
-                        class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
-                        on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
-                        on:mouseout={function() {selected_datapoint = undefined}}
-                        style={"fill:" + chooseColour(city.popup.title)}>
-                            <title>{city.popup.title}</title>
-                        </circle>
-                    {/if}
-                    {#if all_south_cities.includes(city.popup.title) && showSouth}
-                        <circle cx={scaleX(city.position[0])}
-                        cy={scaleY(city.position[1])}
-                        r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
-                        class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
-                        on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
-                        on:mouseout={function() {selected_datapoint = undefined}}
-                        style={"fill:" + chooseColour(city.popup.title)}>
-                            <title>{city.popup.title}</title>
-                        </circle>
-                    {/if}
-                    {#if all_west_cities.includes(city.popup.title) && showWest}
-                        <circle cx={scaleX(city.position[0])}
-                        cy={scaleY(city.position[1])}
-                        r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
-                        class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
-                        on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
-                        on:mouseout={function() {selected_datapoint = undefined}}
-                        style={"fill:" + chooseColour(city.popup.title)}>
-                            <title>{city.popup.title}</title>
-                        </circle>
-                    {/if}
-                    {#if all_underdark_cities.includes(city.popup.title) && showUnderdark}
-                        <circle cx={scaleX(city.position[0])}
-                        cy={scaleY(city.position[1])}
-                        r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
-                        class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
-                        on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
-                        on:mouseout={function() {selected_datapoint = undefined}}
-                        style={"fill:" + chooseColour(city.popup.title)}>
-                            <title>{city.popup.title}</title>
-                        </circle>
-                    {/if}
+            href = "http://localhost:5173/image.jpg"/>
+    {/if}
+    {#each data.regions as datapoint}
+        {#each datapoint.markers as city}
+            {#if all_cities.includes(city.popup.title)}
+                {#if all_north_cities.includes(city.popup.title) && showNorth}
+                    <circle cx={scaleX(city.position[0]-92.16)}
+                    cy={scaleY(city.position[1]+97)}
+                    r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
+                    class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
+                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
+                    on:mouseout={function() {selected_datapoint = undefined}}
+                    style={"fill:" + chooseColour(city.popup.title)}>
+                        <title>{city.popup.title}</title>
+                    </circle>
                 {/if}
-        {/each}
+                {#if all_east_cities.includes(city.popup.title) && showEast}
+                    <circle cx={scaleX(city.position[0]-92.16)}
+                    cy={scaleY(city.position[1]+97)}
+                    r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
+                    class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
+                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
+                    on:mouseout={function() {selected_datapoint = undefined}}
+                    style={"fill:" + chooseColour(city.popup.title)}>
+                        <title>{city.popup.title}</title>
+                    </circle>
+                {/if}
+                {#if all_south_cities.includes(city.popup.title) && showSouth}
+                    <circle cx={scaleX(city.position[0]-92.16)}
+                    cy={scaleY(city.position[1]+97)}
+                    r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
+                    class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
+                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
+                    on:mouseout={function() {selected_datapoint = undefined}}
+                    style={"fill:" + chooseColour(city.popup.title)}>
+                        <title>{city.popup.title}</title>
+                    </circle>
+                {/if}
+                {#if all_west_cities.includes(city.popup.title) && showWest}
+                    <circle cx={scaleX(city.position[0]-92.16)}
+                    cy={scaleY(city.position[1]+97)}
+                    r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
+                    class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
+                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
+                    on:mouseout={function() {selected_datapoint = undefined}}
+                    style={"fill:" + chooseColour(city.popup.title)}>
+                        <title>{city.popup.title}</title>
+                    </circle>
+                {/if}
+                {#if all_underdark_cities.includes(city.popup.title) && showUnderdark}
+                    <circle cx={scaleX(city.position[0]-92.16)}
+                    cy={scaleY(city.position[1]+97)}
+                    r= {scaleRadius(data.deadorders.filter(entry => entry.Territory == city.popup.title).length)}
+                    class:selected="{selected_datapoint && city.id == selected_datapoint.id}"
+                    on:mouseover={function(event) {selected_datapoint = city; setMousePosition(event)}}
+                    on:mouseout={function() {selected_datapoint = undefined}}
+                    style={"fill:" + chooseColour(city.popup.title)}>
+                        <title>{city.popup.title}</title>
+                    </circle>
+                {/if}
+            {/if}
     {/each}
-    </svg>
-{/if}
+{/each}
+</svg>
 
 <div class="checkboxes">
 {#each availableOptions as value, index}
@@ -317,6 +318,7 @@
 </label>
 {/each}
 </div>
+<button on:click={() => visible = !visible}>Remove map</button>
 
 {#if selected_datapoint != undefined}
     {#each [subtractArrays(data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.DeliveryDate).map(entry => new Date(entry)),data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.OrderDate).map(entry => new Date(entry)))] as path}
@@ -333,7 +335,6 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                on:click={() => selected_datapoint = undefined}
             /> 
         {/each}
     {/each}
