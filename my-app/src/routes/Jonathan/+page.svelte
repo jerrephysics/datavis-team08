@@ -137,6 +137,7 @@
     }
 
     function formatArrayToPathData(array, scaleXFunc , scaleYFunc) {
+        console.log(array);
         let pathData = '';
         array.forEach((value, index) => {
             const x = scaleXFunc(index + 1); // Scale x-coordinate if needed
@@ -147,7 +148,7 @@
                 pathData += ` L${x},${y}`; // Draw a line to subsequent points
             }
         });
-        //console.log(pathData);
+        console.log(pathData);
         return pathData;
     }
 
@@ -161,8 +162,8 @@
         //console.log("yDomain:", yDomain);
 
         // Define the output range (the dimensions of your SVG)
-        const xRange = [0,svgWidth];
-        const yRange = [svgHeight, 0]; // In SVG, y-coordinates increase from top to bottom
+        const xRange = [200,svgWidth-200];
+        const yRange = [svgHeight-200, 0]; // In SVG, y-coordinates increase from top to bottom
         
         //console.log("xRange:", xRange);
         //console.log("yRange:", yRange);
@@ -176,6 +177,35 @@
 
         return { scaleXFunc, scaleYFunc };
     }
+
+    function generateHistogramData(dataArray) {
+    // Initialize an array to store the histogram data
+        var histogram = [0, 0, 0, 0, 0];
+
+        // Loop through the data array and count occurrences within each range
+        for (var i = 0; i < dataArray.length; i++) {
+            var value = dataArray[i];
+
+            if (value >= 7 && value < 8) {
+                histogram[0]++;
+            } else if (value >= 8 && value < 9) {
+                histogram[1]++;
+            } else if (value >= 9 && value < 10) {
+                histogram[2]++;
+            } else if (value >= 10 && value < 11) {
+                histogram[3]++;
+            } else if (value >= 11 && value <= 12) {
+                histogram[4]++;
+            }
+        }
+
+        return histogram;
+        console.log(histogram);
+    }
+
+    var dataArray = [7.5, 8.2, 9.3, 10.1, 10.5, 11.7, 11.9];
+    var histogramData = generateHistogramData(dataArray);
+    console.log(histogramData); // Output: [1, 1, 1, 2, 2]
 
 	onMount(() => {
 		loaded = true;
@@ -230,15 +260,15 @@
 <h1> Map of the Forgotten realms</h1>
 <svg width={svgWidth} height={svgHeight}>
     {#if selected_datapoint != undefined}
-        {#each [subtractArrays(data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.DeliveryDate).map(entry => new Date(entry)),data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.OrderDate).map(entry => new Date(entry)))] as path}
-            {#each [createScalingFunctions(path)] as { scaleXFunc, scaleYFunc }}
+        {#each [subtractArrays(data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.DeliveryDate).map(entry => new Date(entry)),data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.OrderDate).map(entry => new Date(entry))).map(entry => entry/(1000*3600*24))] as path}
+            {#each [createScalingFunctions(generateHistogramData(path))] as { scaleXFunc, scaleYFunc }}
                 <path
                     in:draw={{
                         duration: 2000,
                         easing: quintOut
                     }}
                     class={`Line`}
-                    d={formatArrayToPathData(path, scaleXFunc, scaleYFunc)}
+                    d={formatArrayToPathData(generateHistogramData(path), scaleXFunc, scaleYFunc)}
                     fill="none"
                     stroke={linecolor}
                     stroke-width="2"
