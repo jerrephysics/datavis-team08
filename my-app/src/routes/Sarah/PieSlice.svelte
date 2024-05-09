@@ -7,8 +7,9 @@
     
     const colors = [
     'Navy', 'RoyalBlue', 'Teal', 'SpringGreen', 'Yellow', 'Pink',
-    'Tomato', 'Red', 'GoldenRod', 'SaddleBrown', 'ForestGreen ', 'DarkSlateGrey'
-  ];
+    'Tomato', 'Red', 'GoldenRod', 'SaddleBrown', 'ForestGreen', 'DarkSlateGrey'
+  ]; 
+    
   
     const degree2radians = function(degree) {
       return Math.PI*(degree)/180
