@@ -12,13 +12,13 @@
       })
     }
   </script>
-  <h1> Price in CP  Ordered per Month</h1>
+  
   <style>
     svg {
       background-color: whitesmoke;
     }
   </style>
-  
+  <h1>Total Price of Orders in CP per Month</h1>
   <svg width=500 height=500>
     {#each slices as slice}
       <PieSlice cx=250 cy=250

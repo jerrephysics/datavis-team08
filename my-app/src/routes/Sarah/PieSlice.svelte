@@ -4,7 +4,11 @@
     export let r = 50;
     export let start_degree = 0;
     export let stop_degree = 0;
-    export let colour = 'steelblue';
+    
+    const colors = [
+    'Navy', 'RoyalBlue', 'Teal', 'SpringGreen', 'Yellow', 'Pink',
+    'Tomato', 'Red', 'Salmon', 'SaddleBrown', 'ForestGreen ', 'DarkSlateGrey'
+  ];
   
     const degree2radians = function(degree) {
       return Math.PI*(degree)/180
@@ -34,8 +38,12 @@
   
   <style>
     path {
-      stroke: white;
+      stroke: black;
     }
   </style>
   
-  <path d={pieslice(cx, cy, r, start_degree, stop_degree)}, style="fill:{colour};" />
+  {#each Array.from({ length: 12 }).keys() as index}
+  {#if index < colors.length}
+    <path d={pieslice(cx, cy, r, start_degree + (index * (360 / 12)), start_degree + ((index + 1) * (360 / 12)), colors[index])} style="fill:{colors[index]};" />
+  {/if}
+{/each}
