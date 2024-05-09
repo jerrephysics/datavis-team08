@@ -7,9 +7,14 @@
     import { draw } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import { onMount } from 'svelte';
+    import { getContext } from 'svelte';
   
     export let data = [];
     export let selected_datapoint = undefined;
+    const yTicks = Array.from({ length: 41 }, (_, i) => i * 10);
+	const xTicks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+	const padding = { top: 20, right: 15, bottom: 20, left: 25 };
+
     let visible = true;
     let temp = false;
     let showtemp = [false,false,false,false];
@@ -137,7 +142,6 @@
     }
 
     function formatArrayToPathData(array, scaleXFunc , scaleYFunc) {
-        console.log(array);
         let pathData = '';
         array.forEach((value, index) => {
             const x = scaleXFunc(index + 1); // Scale x-coordinate if needed
@@ -148,64 +152,72 @@
                 pathData += ` L${x},${y}`; // Draw a line to subsequent points
             }
         });
-        console.log(pathData);
         return pathData;
     }
 
-    // Function to create scaling functions based on data array
     function createScalingFunctions(dataArray) {
         // Define the input domain (the range of values in your data array)
         const xDomain = [1, dataArray.length]; // Assuming 1-based indexing for the x-axis
         const yDomain = [Math.min(...dataArray), Math.max(...dataArray)]; // Assuming y-axis range from min to max values
         
-        //console.log("xDomain:", xDomain);
-        //console.log("yDomain:", yDomain);
-
         // Define the output range (the dimensions of your SVG)
         const xRange = [200,svgWidth-200];
         const yRange = [svgHeight-200, 0]; // In SVG, y-coordinates increase from top to bottom
         
-        //console.log("xRange:", xRange);
-        //console.log("yRange:", yRange);
-
         // Create scaling functions for x and y coordinates
         const scaleXFunc = d3.scaleLinear().domain(xDomain).range(xRange);
         const scaleYFunc = d3.scaleLinear().domain(yDomain).range(yRange);
-
-        //console.log("scaleXFunc:", scaleXFunc);
-        //console.log("scaleYFunc:", scaleYFunc);
 
         return { scaleXFunc, scaleYFunc };
     }
 
     function generateHistogramData(dataArray) {
-    // Initialize an array to store the histogram data
-        var histogram = [0, 0, 0, 0, 0];
+        var histogram = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-        // Loop through the data array and count occurrences within each range
         for (var i = 0; i < dataArray.length; i++) {
             var value = dataArray[i];
 
-            if (value >= 7 && value < 8) {
+            if (value >= 0 && value < 1) {
                 histogram[0]++;
-            } else if (value >= 8 && value < 9) {
+            } else if (value >= 1 && value < 2) {
                 histogram[1]++;
-            } else if (value >= 9 && value < 10) {
+            } else if (value >= 2 && value < 3) {
                 histogram[2]++;
-            } else if (value >= 10 && value < 11) {
+            } else if (value >= 3 && value < 4) {
                 histogram[3]++;
-            } else if (value >= 11 && value <= 12) {
+            } else if (value >= 4 && value < 5) {
                 histogram[4]++;
+            } else if (value >= 5 && value < 6) {
+                histogram[5]++;
+            } else if (value >= 6 && value <= 7) {
+                histogram[6]++;
+            } else if (value >= 7 && value <= 8) {
+                histogram[7]++;
+            } else if (value >= 8 && value <= 9) {
+                histogram[8]++;
+            } else if (value >= 9 && value <= 10) {
+                histogram[9]++;
+            } else if (value >= 10 && value <= 11) {
+                histogram[10]++;
+            } else if (value >= 11 && value <= 12) {
+                histogram[11]++;
+            } else if (value >= 12 && value <= 13) {
+                histogram[12]++;
+            } else if (value >= 13 && value <= 14) {
+                histogram[13]++;
+            } else if (value >= 14 && value <= 15) {
+                histogram[14]++;
+            } else if (value >= 15 && value <= 16) {
+                histogram[15]++;
+            } else if (value >= 16 && value <= 17) {
+                histogram[16]++;
+            } else if (value >= 17 && value <= 18) {
+                histogram[17]++;
             }
         }
 
         return histogram;
-        console.log(histogram);
     }
-
-    var dataArray = [7.5, 8.2, 9.3, 10.1, 10.5, 11.7, 11.9];
-    var histogramData = generateHistogramData(dataArray);
-    console.log(histogramData); // Output: [1, 1, 1, 2, 2]
 
 	onMount(() => {
 		loaded = true;
@@ -250,10 +262,54 @@
         display: unset;
         fill: none;
         stroke: red;
-        stroke-width: 1;
+        stroke-width: 4;
         stroke-linecap: round;
         stroke-linejoin: round;
     }
+
+    .chart,
+	h2,
+	p {
+		width: 100%;
+		max-width: 500px;
+		margin-left: 200px;
+		margin-right: 200px;
+	}
+
+	.tick {
+		font-size: 0.725em;
+		font-weight: 200;
+	}
+
+	.tick line {
+		stroke: #ffcc02;
+		stroke-dasharray: 3;
+	}
+
+	.tick text {
+		fill: #ffcc02;
+		text-anchor: start;
+	}
+
+	.tick.tick-0 line {
+		stroke-dasharray: 0;
+	}
+
+	.x-axis .tick text {
+		text-anchor: middle;
+	}
+
+	.path-line {
+		fill: none;
+		stroke: rgb(0, 100, 100);
+		stroke-linejoin: round;
+		stroke-linecap: round;
+		stroke-width: 2;
+	}
+
+	.path-area {
+		fill: rgba(0, 100, 100, 0.2);
+	}
 </style>
 
 
@@ -262,6 +318,22 @@
     {#if selected_datapoint != undefined}
         {#each [subtractArrays(data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.DeliveryDate).map(entry => new Date(entry)),data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.OrderDate).map(entry => new Date(entry))).map(entry => entry/(1000*3600*24))] as path}
             {#each [createScalingFunctions(generateHistogramData(path))] as { scaleXFunc, scaleYFunc }}
+                <g class="axis y-axis" transform="translate(0, {padding.top})">
+                    {#each yTicks as tick}
+                        <g class="tick tick-{tick}" transform="translate(0, {scaleYFunc(tick) - padding.bottom})">
+                            <line x2="100%" />
+                            <text y="-4">{tick} {tick === 8 ? ' million sq km' : ''}</text>
+                        </g>
+                    {/each}
+                </g>
+                <g class="axis x-axis">
+                    {#each xTicks as tick}
+                        <g class="tick tick-{tick}" transform="translate({scaleXFunc(tick)},{svgHeight})">
+                            <line y1="-{svgHeight}" y2="-{padding.bottom}" x1="0" x2="0" />
+                            <text y="-2">{svgWidth > 380 ? tick : formatMobile(tick)}</text>
+                        </g>
+                    {/each}
+                </g>
                 <path
                     in:draw={{
                         duration: 2000,
