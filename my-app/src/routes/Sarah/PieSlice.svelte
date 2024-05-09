@@ -7,7 +7,7 @@
     
     const colors = [
     'Navy', 'RoyalBlue', 'Teal', 'SpringGreen', 'Yellow', 'Pink',
-    'Tomato', 'Red', 'Salmon', 'SaddleBrown', 'ForestGreen ', 'DarkSlateGrey'
+    'Tomato', 'Red', 'GoldenRod', 'SaddleBrown', 'ForestGreen ', 'DarkSlateGrey'
   ];
   
     const degree2radians = function(degree) {
