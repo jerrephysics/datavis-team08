@@ -204,7 +204,6 @@ svg.append('g').selectAll('text')
 		position: fixed;
 		width: 100%;
 		height: 85%;
-		background-color: whitesmoke;
 		flex: auto;
 	}
 
