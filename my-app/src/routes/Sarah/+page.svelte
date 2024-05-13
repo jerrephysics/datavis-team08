@@ -1,6 +1,5 @@
 <script lang="ts">
     import PieSlice from './PieSlice.svelte';
-    import PieSlice2 from './PieSlice2.svelte'
     export let data = []
   
     let slices = []
@@ -13,16 +12,6 @@
         running_sum = new_running_sum;
       })
     }
-
-    let slices2 = []
-    let running_sum2 = 0
-    
-  
-      data.pie2.forEach(function(d) {
-        let new_running_sum2 = running_sum2 + d;
-        slices.push([running_sum2, new_running_sum2])
-        running_sum2 = new_running_sum2;
-      })
 
   </script>
   
@@ -126,15 +115,5 @@
   </svg>
 
   <svg width=900 height=500>
-    {#each slices2 as slice2}
-      <PieSlice2 cx=300 cy=300
-                r=80
-                start_degree={slice2[0]} stop_degree={slice2[1]} />
-    {/each}
-    {#each data.pie2 as p}
-    <ul>
-      {p}
-    </ul>
-    {/each}
     <image xlink:href="./violin.png" x="200" y="-100" width="550" height="700" />
   </svg>
