@@ -301,7 +301,7 @@
 
 	.path-line {
 		fill: none;
-		stroke: rgb(0, 100, 100);
+		stroke: rgb(100, 38, 0);
 		stroke-linejoin: round;
 		stroke-linecap: round;
 		stroke-width: 2;
@@ -319,6 +319,7 @@
         {#each [subtractArrays(data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.DeliveryDate).map(entry => new Date(entry)),data.deadorders.filter(entry => entry.Territory ==  selected_datapoint.popup.title).map(entry => entry.OrderDate).map(entry => new Date(entry))).map(entry => entry/(1000*3600*24))] as path}
             {#each [createScalingFunctions(generateHistogramData(path))] as { scaleXFunc, scaleYFunc }}
                 <g class="axis y-axis" transform="translate(0, {padding.top})">
+                    <text x={-75} y={100} text-anchor="middle" fill="#ffcc02" transform="rotate(-90)">Frequency (number of orders)</text>
                     {#each yTicks as tick}
                         <g class="tick tick-{tick}" transform="translate(0, {scaleYFunc(tick) - padding.bottom})">
                             <line x2="100%" />
@@ -327,6 +328,7 @@
                     {/each}
                 </g>
                 <g class="axis x-axis">
+                    <text x={750} y={500} text-anchor="middle" fill="#ffcc02" transform="rotate(0)">Delivery time = Deliverydate - Orderdate (days)</text>
                     {#each xTicks as tick}
                         <g class="tick tick-{tick}" transform="translate({scaleXFunc(tick)},{svgHeight})">
                             <line y1="-{svgHeight}" y2="-{padding.bottom}" x1="0" x2="0" />
