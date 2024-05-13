@@ -115,5 +115,5 @@
   </svg>
 
   <svg width=900 height=500>
-    <image xlink:href="./violin.png" x="200" y="-100" width="550" height="700" />
+    <image xlink:href="http://localhost:5173/violin.png" x="200" y="-100" width="550" height="700" />
   </svg>
